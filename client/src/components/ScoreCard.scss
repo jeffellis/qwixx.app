@@ -1,0 +1,13 @@
+.ScoreCard {
+    align-items: center;
+    background-color: lightgrey;
+    display: flex;
+    flex-flow: column nowrap;
+    
+    height: 40rem;
+
+    justify-content: space-between;
+
+    padding: 1rem 0;
+    width: 60rem;    
+}
