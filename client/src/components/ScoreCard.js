@@ -7,6 +7,7 @@ import PointsList from "./PointsList";
 import Row from "./Row.js";
 import "./ScoreCard.scss";
 import Penalties from "./Penalties";
+import TotalsRow from "./TotalsRow";
 
 const INITIAL_ROW_STATE = {
   2: STATES.OPEN,
@@ -111,6 +112,7 @@ const ScoreCard = (props) => {
           onBoxToggled={onPenaltyToggle}
         />
       </div>
+      <TotalsRow />
     </div>
   );
 };
