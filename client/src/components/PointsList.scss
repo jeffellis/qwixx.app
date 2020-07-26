@@ -1,0 +1,31 @@
+.PointsList {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+  .Multiplier,
+  .Value {
+    display: flex;
+    justify-content: center;
+    padding: 0 0.5rem;
+    width: 100%;
+  }
+
+  .Multiplier {
+    border-bottom: 0.1rem solid black;
+  }
+
+  .PointValue {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    margin-left: 0.5rem;
+    width: 100%;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 0.3rem;
+    // padding: 0 0.5rem;
+  }
+}
