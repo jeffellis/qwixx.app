@@ -1,0 +1,13 @@
+.Penalties {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  text-align: left;
+
+  .btn {
+    background-color: white;
+    border-radius: 0.3rem !important;
+    height: 1.8rem;
+    margin-right: 0.8rem;
+  }
+}

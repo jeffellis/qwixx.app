@@ -6,6 +6,7 @@ import { STATES, LOCK_COLUMN } from "../Constants";
 import PointsList from "./PointsList";
 import Row from "./Row.js";
 import "./ScoreCard.scss";
+import Penalties from "./Penalties";
 
 const INITIAL_ROW_STATE = {
   2: STATES.OPEN,
@@ -38,6 +39,7 @@ const initialState = {
     boxState: { ...INITIAL_ROW_STATE },
     reversed: true,
   },
+  penalties: 0,
 };
 
 const markIntermediateBoxes = (row, box, oldState, newState) => {
@@ -50,6 +52,14 @@ const markIntermediateBoxes = (row, box, oldState, newState) => {
 
 const ScoreCard = (props) => {
   const [scores, setScores] = useState(initialState);
+
+  const onPenaltyToggle = (penaltyCount) => {
+    setScores(
+      produce((scores) => {
+        scores.penalties = penaltyCount;
+      })
+    );
+  };
 
   const onBoxToggled = (color, value) => {
     setScores(
@@ -96,6 +106,10 @@ const ScoreCard = (props) => {
       <Row color="blue" {...rowProps} {...scores.blue} />
       <div className="PointsAndPenalties">
         <PointsList />
+        <Penalties
+          penalties={scores.penalties}
+          onBoxToggled={onPenaltyToggle}
+        />
       </div>
     </div>
   );
