@@ -112,7 +112,7 @@ const ScoreCard = (props) => {
           onBoxToggled={onPenaltyToggle}
         />
       </div>
-      <TotalsRow />
+      <TotalsRow scorecard={scores} />
     </div>
   );
 };
