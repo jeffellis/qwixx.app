@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./TotalsRow.scss";
+import { LOCK_COLUMN, STATES, POINT_VALUES, PENALTY } from "../Constants";
 
 const displayName = "TotalsRow";
 
@@ -35,7 +36,9 @@ const TotalsRow = (props) => {
       </div>
       <span className="equals">=</span>
       <div className="Total Total-grandTotal">
-        <div className="TotalText">{totals.total > 0 ? totals.total : " "}</div>
+        <div className="TotalText">
+          {totals.total !== 0 ? totals.total : " "}
+        </div>
       </div>
     </div>
   );
@@ -45,13 +48,24 @@ export default TotalsRow;
 
 const getTotals = (scorecard) => {
   const totals = {
-    red: 0,
-    yellow: 0,
-    green: 0,
-    blue: 0,
-    penalties: 0,
-    total: 0,
+    red: getScore(scorecard.red.boxState),
+    yellow: getScore(scorecard.yellow.boxState),
+    green: getScore(scorecard.green.boxState),
+    blue: getScore(scorecard.blue.boxState),
+    penalties: scorecard.penalties * PENALTY,
   };
 
+  totals.total =
+    totals.red + totals.yellow + totals.green + totals.blue - totals.penalties;
+
   return totals;
+};
+
+const getScore = (boxState) => {
+  let count = 0;
+  for (let i = 2; i < LOCK_COLUMN; i++) {
+    count += boxState[i] === STATES.WON ? 1 : 0;
+  }
+
+  return POINT_VALUES[count];
 };
