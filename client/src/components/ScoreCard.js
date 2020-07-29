@@ -1,5 +1,6 @@
 import React from "react";
 
+import AppHeader from "./AppHeader";
 import Penalties from "./Penalties";
 import PointsList from "./PointsList";
 import Row from "./Row.js";
@@ -11,7 +12,7 @@ import "./ScoreCard.scss";
 const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
-  const { scores, setPenalties, toggleBox } = useScoreCard();
+  const { reset, scores, setPenalties, toggleBox } = useScoreCard();
 
   const onPenaltyToggle = (penaltyCount) => {
     setPenalties(penaltyCount);
@@ -27,7 +28,7 @@ const ScoreCard = (props) => {
 
   return (
     <div className={displayName}>
-      <h1>QWIXX.APP</h1>
+      <AppHeader onReset={reset} />
       <Row color="red" {...rowProps} {...scores.red} />
       <Row color="yellow" {...rowProps} {...scores.yellow} />
       <Row color="green" {...rowProps} {...scores.green} />

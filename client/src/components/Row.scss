@@ -28,6 +28,12 @@
       max-width: 4rem;
       opacity: 0.65;
       width: 4rem;
+
+      // Bootstrap
+      &.active {
+        color: black;
+        background-color: white;
+      }
     }
 
     .btn-lock {
@@ -45,6 +51,7 @@
     .btn-WON {
       background-image: url("/icons/ic_done_48px.svg");
 
+      // Bootstrap
       &.active {
         color: black;
         background-color: white;
