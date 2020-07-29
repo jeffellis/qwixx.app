@@ -20,11 +20,14 @@
 
     .btn {
       background-color: white;
+      background-position-x: center;
+      background-repeat: no-repeat;
       border-radius: 0.3rem !important;
       color: black;
+      font-weight: bold;
+      max-width: 4rem;
       opacity: 0.65;
-      background-repeat: no-repeat;
-      background-position-x: center;
+      width: 4rem;
     }
 
     .btn-lock {
