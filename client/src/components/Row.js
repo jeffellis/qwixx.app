@@ -15,6 +15,7 @@ const Row = (props) => {
 
   const getButtons = () => {
     const buttonProps = {
+      active: false,
       onChange: onBoxToggled,
       size: "lg",
       type: "checkbox",

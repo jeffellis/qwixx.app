@@ -50,6 +50,10 @@ const markIntermediateBoxes = (row, box, oldState, newState) => {
 const useScoreCard = () => {
   const [scores, setScores] = useState(initialState);
 
+  const reset = () => {
+    setScores(initialState);
+  };
+
   const setPenalties = (penaltyCount) => {
     setScores(
       produce((scores) => {
@@ -90,7 +94,7 @@ const useScoreCard = () => {
     );
   };
 
-  return { scores, setPenalties, toggleBox };
+  return { reset, scores, setPenalties, toggleBox };
 };
 
 export default useScoreCard;

@@ -26,7 +26,7 @@ const getPointValue = (value) => {
   return (
     <div className="PointValue" key={value}>
       <div className="Multiplier">{`${value}x`}</div>
-      <div className="Value">{POINT_VALUES[value - 1]}</div>
+      <div className="Value">{POINT_VALUES[value]}</div>
     </div>
   );
 };
