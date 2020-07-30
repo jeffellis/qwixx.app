@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import produce from "immer";
+import produce, { current } from "immer";
 
 import { STATES, LOCK_COLUMN } from "../Constants";
+import { saveScoreCard, getScoreCard } from "../services/DBService";
 
 const INITIAL_ROW_STATE = {
   2: STATES.OPEN,
@@ -48,16 +49,25 @@ const markIntermediateBoxes = (row, box, oldState, newState) => {
 };
 
 const useScoreCard = () => {
-  const [scores, setScores] = useState(initialState);
+  const [scores, setScores] = useState(() => {
+    getScoreCard().then((scorecard) => {
+      if (scorecard && scorecard.red) {
+        setScores(scorecard);
+      }
+    });
+    return initialState;
+  });
 
   const reset = () => {
     setScores(initialState);
+    saveScoreCard(null);
   };
 
   const setPenalties = (penaltyCount) => {
     setScores(
       produce((scores) => {
         scores.penalties = penaltyCount;
+        saveScoreCard(current(scores));
       })
     );
   };
@@ -90,6 +100,7 @@ const useScoreCard = () => {
             // Leave unchanged
             break;
         }
+        saveScoreCard(current(scores));
       })
     );
   };
