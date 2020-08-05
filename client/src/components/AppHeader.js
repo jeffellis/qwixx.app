@@ -9,7 +9,7 @@ const displayName = "AppHeader";
 const AppHeader = (props) => {
   return (
     <div className={displayName}>
-      <h1 className="Title">QWIXX.APP</h1>
+      <span className="Title">QWIXX.APP</span>
       <Button
         className="ResetButton"
         variant="secondary"

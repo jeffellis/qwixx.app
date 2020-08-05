@@ -21,7 +21,7 @@ const Penalties = (props) => {
 
   return (
     <div className={`${displayName}`}>
-      <span>Penalties (-5 for each)</span>
+      <span className="PenaltyText">Penalties (-5 for each)</span>
       <ToggleButtonGroup {...toggleButtonGroupProps}>
         {getToggleButton(1)}
         {getToggleButton(2)}

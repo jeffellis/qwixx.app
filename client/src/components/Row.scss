@@ -1,3 +1,5 @@
+@import "constants";
+
 .Row {
   display: flex;
   justify-content: space-around;
@@ -5,12 +7,13 @@
   align-items: center;
   height: 5rem;
   width: 95%;
-
+  padding: 0 0.5rem;
   .btn-group {
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
+    height: 95%;
     margin: 0 0.5rem;
     width: 100%;
 
@@ -19,20 +22,22 @@
     }
 
     .btn {
-      background-color: white;
+      background-color: $white;
       background-position-x: center;
+      background-size: contain;
       background-repeat: no-repeat;
       border-radius: 0.3rem !important;
-      color: black;
+      color: $black;
       font-weight: bold;
       max-width: 4rem;
       opacity: 0.65;
+      padding: 0 0;
       width: 4rem;
 
       // Bootstrap
       &.active {
-        color: black;
-        background-color: white;
+        color: $black;
+        background-color: $white;
       }
     }
 

@@ -1,25 +1,54 @@
+$rowHeight: 12%;
+
 .ScoreCard {
   align-items: center;
   background-color: lightgrey;
   display: flex;
   flex-flow: column nowrap;
 
-  height: 40rem;
-
+  height: 100%;
   justify-content: space-between;
 
+  overflow: hidden;
   padding: 1rem 0;
-  width: 60rem;
+  width: 100%;
+
+  .AppHeader {
+    height: $rowHeight;
+    padding-bottom: 0.5rem;
+  }
 
   .PointsAndPenalties {
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
+    height: 15%;
     justify-content: flex-start;
+    overflow: hidden;
     width: 95%;
   }
 
   .Penalties {
     margin-left: 1rem;
+  }
+
+  .Row {
+    height: $rowHeight;
+  }
+
+  .TotalsRow {
+    height: $rowHeight;
+  }
+}
+
+@media (min-height: 40rem) {
+  .ScoreCard {
+    height: 40rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .ScoreCard {
+    width: 60rem;
   }
 }
