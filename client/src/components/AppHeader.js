@@ -1,6 +1,7 @@
 import React from "react";
 
 import Button from "react-bootstrap/Button";
+import Dice from "./Dice";
 
 import "./AppHeader.scss";
 
@@ -9,6 +10,7 @@ const displayName = "AppHeader";
 const AppHeader = (props) => {
   return (
     <div className={displayName}>
+      <Dice />
       <span className="Title">QWIXX.APP</span>
       <Button
         className="ResetButton"
