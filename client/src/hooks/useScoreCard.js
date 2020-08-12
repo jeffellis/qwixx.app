@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import produce, { current } from "immer";
 
 import { STATES, LOCK_COLUMN } from "../Constants";
