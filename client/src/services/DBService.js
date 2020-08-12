@@ -1,4 +1,4 @@
-import { openDB, deleteDB, wrap, unwrap } from "idb";
+import { openDB } from "idb";
 
 const CURRENT_SCORECARD_KEY = "current";
 const DATABASE_NAME = "QWIXX";
