@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/qwixx.app/static/css/main.14edf133.chunk.css",
+    "main.js": "/qwixx.app/static/js/main.97428a55.chunk.js",
+    "main.js.map": "/qwixx.app/static/js/main.97428a55.chunk.js.map",
+    "runtime-main.js": "/qwixx.app/static/js/runtime-main.47e59be7.js",
+    "runtime-main.js.map": "/qwixx.app/static/js/runtime-main.47e59be7.js.map",
+    "static/css/2.e5b300ba.chunk.css": "/qwixx.app/static/css/2.e5b300ba.chunk.css",
+    "static/js/2.63da58e9.chunk.js": "/qwixx.app/static/js/2.63da58e9.chunk.js",
+    "static/js/2.63da58e9.chunk.js.map": "/qwixx.app/static/js/2.63da58e9.chunk.js.map",
+    "index.html": "/qwixx.app/index.html",
+    "precache-manifest.de0d609fed499fe441c21268637945c9.js": "/qwixx.app/precache-manifest.de0d609fed499fe441c21268637945c9.js",
+    "service-worker.js": "/qwixx.app/service-worker.js",
+    "static/css/2.e5b300ba.chunk.css.map": "/qwixx.app/static/css/2.e5b300ba.chunk.css.map",
+    "static/css/main.14edf133.chunk.css.map": "/qwixx.app/static/css/main.14edf133.chunk.css.map",
+    "static/js/2.63da58e9.chunk.js.LICENSE.txt": "/qwixx.app/static/js/2.63da58e9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.47e59be7.js",
+    "static/css/2.e5b300ba.chunk.css",
+    "static/js/2.63da58e9.chunk.js",
+    "static/css/main.14edf133.chunk.css",
+    "static/js/main.97428a55.chunk.js"
+  ]
+}
