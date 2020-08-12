@@ -1,0 +1,25 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  width: 100vw;
+}
+
+// Large screens
+@media (min-height: 40rem) {
+  .App {
+    height: 40rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .App {
+    width: 60rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .App {
+    font-size: 12px;
+  }
+}
