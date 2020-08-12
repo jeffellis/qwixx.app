@@ -40,15 +40,3 @@ $rowHeight: 12%;
     height: $rowHeight;
   }
 }
-
-@media (min-height: 40rem) {
-  .ScoreCard {
-    height: 40rem;
-  }
-}
-
-@media (min-width: 60rem) {
-  .ScoreCard {
-    width: 60rem;
-  }
-}
