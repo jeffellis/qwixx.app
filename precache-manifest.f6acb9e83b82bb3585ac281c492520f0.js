@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "324acd7db083b97248459de5c0144e08",
+    "revision": "9f8776db923b31f2c54a63ef8cd96c6a",
     "url": "/qwixx.app/index.html"
   },
   {
