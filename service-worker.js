@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/qwixx.app/precache-manifest.f6acb9e83b82bb3585ac281c492520f0.js"
+  "/qwixx.app/precache-manifest.e3fc3e833fe11d995754b06ced57417a.js"
 );
 
 self.addEventListener('message', (event) => {
