@@ -42,14 +42,14 @@ const dice = {
   },
 };
 
-const Dice = () => {
+const Dice = (props) => {
   return (
     <div className="DiceContainer" onClick={rollDice}>
       {getDice("white")}
-      {getDice("red")}
-      {getDice("yellow")}
-      {getDice("green")}
-      {getDice("blue")}
+      {props.scoreCard.red.locked == false ? getDice("red") : null}
+      {props.scoreCard.yellow.locked == false ? getDice("yellow") : null}
+      {props.scoreCard.green.locked == false ? getDice("green") : null}
+      {props.scoreCard.blue.locked == false ? getDice("blue") : null}
     </div>
   );
 };
@@ -71,10 +71,10 @@ const getDice = (key) => {
 
 const rollDice = () => {
   dice.white.ref.rollAll();
-  dice.red.ref.rollAll();
-  dice.yellow.ref.rollAll();
-  dice.green.ref.rollAll();
-  dice.blue.ref.rollAll();
+  dice.red.ref && dice.red.ref.rollAll();
+  dice.yellow.ref && dice.yellow.ref.rollAll();
+  dice.green.ref && dice.green.ref.rollAll();
+  dice.blue.ref && dice.blue.ref.rollAll();
 };
 
 export default Dice;
