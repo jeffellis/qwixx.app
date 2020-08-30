@@ -6,10 +6,14 @@ export const POINT_VALUES = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78];
 
 export const STATES = {
   BLOCKED: "BLOCKED",
-  OPEN: "OPEN",
-  WON: "WON",
+  DISABLED: "DISABLED",
   LOCKED: "LOCKED",
+  OPEN: "OPEN",
+  UNLOCKED: "UNLOCKED",
+  WON: "WON",
 };
+
+export const WINS_NEEDED_TO_LOCK_ROW = 5;
 
 // Colors
 export const BLACK = "black";
