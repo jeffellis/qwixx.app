@@ -56,6 +56,7 @@ const initialState = produce(
 );
 
 const markIntermediateBoxes = (row, box, oldState, newState) => {
+  debugger;
   let index = row.reversed ? Number(box) + 1 : Number(box) - 1;
   while (index <= 12 && index >= 2 && row.boxState[index] === oldState) {
     row.boxState[index] = newState;
@@ -120,23 +121,46 @@ const useScoreCard = () => {
     }
   };
 
+  const lockRowForOtherPlayer = (row) => {
+    const finalBox = getFinalBox(row);
+    row.locked = true;
+    row.boxState[LOCK_COLUMN] = STATES.LOCKED;
+    row.boxState[finalBox] = STATES.BLOCKED;
+    markIntermediateBoxes(row, finalBox, STATES.OPEN, STATES.BLOCKED);
+  };
+
+  const unlockRowForOtherPlayer = (row) => {
+    const finalBox = getFinalBox(row);
+    row.locked = false;
+    row.boxState[LOCK_COLUMN] = STATES.UNLOCKED;
+    row.boxState[finalBox] =
+      row.winCount < WINS_NEEDED_TO_LOCK_ROW ? STATES.DISABLED : STATES.OPEN;
+    markIntermediateBoxes(row, finalBox, STATES.BLOCKED, STATES.OPEN);
+  };
+
   const toggleBox = (color, value) => {
     setScores(
       produce((scores) => {
         const row = scores[color];
 
         switch (row.boxState[value]) {
-          case STATES.WON:
-            if (Number(value) !== LOCK_COLUMN) {
-              markBoxOpen(row, value);
-            }
+          case STATES.DISABLED:
+            break;
+          case STATES.LOCKED:
+            unlockRowForOtherPlayer(row);
             break;
           case STATES.OPEN:
             if (Number(value) !== LOCK_COLUMN) {
               markBoxWon(row, value);
             }
             break;
-          case STATES.DISABLED:
+          case STATES.UNLOCKED:
+            lockRowForOtherPlayer(row);
+            break;
+          case STATES.WON:
+            if (Number(value) !== LOCK_COLUMN) {
+              markBoxOpen(row, value);
+            }
             break;
           default:
             // Leave unchanged
