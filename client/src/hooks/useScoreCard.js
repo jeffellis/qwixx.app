@@ -3,7 +3,6 @@ import produce, { current } from "immer";
 
 import { STATES, LOCK_COLUMN, WINS_NEEDED_TO_LOCK_ROW } from "../Constants";
 import { saveScoreCard, getScoreCard } from "../services/DBService";
-import TotalsRow from "../components/TotalsRow";
 
 const INITIAL_ROW_STATE = {
   2: STATES.OPEN,
