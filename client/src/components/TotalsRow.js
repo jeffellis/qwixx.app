@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./TotalsRow.scss";
-import { LOCK_COLUMN, STATES, POINT_VALUES, PENALTY } from "../Constants";
+import { POINT_VALUES, PENALTY } from "../Constants";
 import { countWonBoxes } from "../hooks/useScoreCard";
 
 const displayName = "TotalsRow";

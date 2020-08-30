@@ -46,10 +46,10 @@ const Dice = (props) => {
   return (
     <div className="DiceContainer" onClick={rollDice}>
       {getDice("white")}
-      {props.scoreCard.red.locked == false ? getDice("red") : null}
-      {props.scoreCard.yellow.locked == false ? getDice("yellow") : null}
-      {props.scoreCard.green.locked == false ? getDice("green") : null}
-      {props.scoreCard.blue.locked == false ? getDice("blue") : null}
+      {props.scoreCard.red.locked === false ? getDice("red") : null}
+      {props.scoreCard.yellow.locked === false ? getDice("yellow") : null}
+      {props.scoreCard.green.locked === false ? getDice("green") : null}
+      {props.scoreCard.blue.locked === false ? getDice("blue") : null}
     </div>
   );
 };
