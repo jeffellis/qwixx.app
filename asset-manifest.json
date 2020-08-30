@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/qwixx.app/static/css/main.8f7db3ea.chunk.css",
-    "main.js": "/qwixx.app/static/js/main.55426f44.chunk.js",
-    "main.js.map": "/qwixx.app/static/js/main.55426f44.chunk.js.map",
+    "main.js": "/qwixx.app/static/js/main.2b29af00.chunk.js",
+    "main.js.map": "/qwixx.app/static/js/main.2b29af00.chunk.js.map",
     "runtime-main.js": "/qwixx.app/static/js/runtime-main.47e59be7.js",
     "runtime-main.js.map": "/qwixx.app/static/js/runtime-main.47e59be7.js.map",
     "static/css/2.e5b300ba.chunk.css": "/qwixx.app/static/css/2.e5b300ba.chunk.css",
     "static/js/2.cbc125f9.chunk.js": "/qwixx.app/static/js/2.cbc125f9.chunk.js",
     "static/js/2.cbc125f9.chunk.js.map": "/qwixx.app/static/js/2.cbc125f9.chunk.js.map",
     "index.html": "/qwixx.app/index.html",
-    "precache-manifest.cb157d25430cf0d879a31289422639a4.js": "/qwixx.app/precache-manifest.cb157d25430cf0d879a31289422639a4.js",
+    "precache-manifest.109f573246da3697a153e18b21055b9e.js": "/qwixx.app/precache-manifest.109f573246da3697a153e18b21055b9e.js",
     "service-worker.js": "/qwixx.app/service-worker.js",
     "static/css/2.e5b300ba.chunk.css.map": "/qwixx.app/static/css/2.e5b300ba.chunk.css.map",
     "static/css/main.8f7db3ea.chunk.css.map": "/qwixx.app/static/css/main.8f7db3ea.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.e5b300ba.chunk.css",
     "static/js/2.cbc125f9.chunk.js",
     "static/css/main.8f7db3ea.chunk.css",
-    "static/js/main.55426f44.chunk.js"
+    "static/js/main.2b29af00.chunk.js"
   ]
 }
