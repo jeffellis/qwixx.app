@@ -28,7 +28,7 @@ const ScoreCard = (props) => {
 
   return (
     <div className={displayName}>
-      <AppHeader onReset={reset} />
+      <AppHeader scoreCard={scores} onReset={reset} />
       <Row color="red" {...rowProps} {...scores.red} />
       <Row color="yellow" {...rowProps} {...scores.yellow} />
       <Row color="green" {...rowProps} {...scores.green} />

@@ -10,7 +10,7 @@ const displayName = "AppHeader";
 const AppHeader = (props) => {
   return (
     <div className={displayName}>
-      <Dice />
+      <Dice scoreCard={props.scoreCard} />
       <span className="Title">QWIXX.APP</span>
       <Button
         className="ResetButton"
