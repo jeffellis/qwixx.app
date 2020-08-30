@@ -2,6 +2,7 @@ import React from "react";
 
 import "./TotalsRow.scss";
 import { LOCK_COLUMN, STATES, POINT_VALUES, PENALTY } from "../Constants";
+import { countWonBoxes } from "../hooks/useScoreCard";
 
 const displayName = "TotalsRow";
 
@@ -48,10 +49,10 @@ export default TotalsRow;
 
 const getTotals = (scorecard) => {
   const totals = {
-    red: getScore(scorecard.red.boxState),
-    yellow: getScore(scorecard.yellow.boxState),
-    green: getScore(scorecard.green.boxState),
-    blue: getScore(scorecard.blue.boxState),
+    red: getScore(scorecard.red),
+    yellow: getScore(scorecard.yellow),
+    green: getScore(scorecard.green),
+    blue: getScore(scorecard.blue),
     penalties: scorecard.penalties * PENALTY,
   };
 
@@ -61,11 +62,6 @@ const getTotals = (scorecard) => {
   return totals;
 };
 
-const getScore = (boxState) => {
-  let count = 0;
-  for (let i = 2; i < LOCK_COLUMN; i++) {
-    count += boxState[i] === STATES.WON ? 1 : 0;
-  }
-
-  return POINT_VALUES[count];
+const getScore = (row) => {
+  return POINT_VALUES[countWonBoxes(row)];
 };

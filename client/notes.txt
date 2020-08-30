@@ -1,0 +1,10 @@
+- Should have started from a mobile size screen
+
+- Bootstrap may be more trouble than it is worth
+
+- Deploying to gh-pages lost the icons when using absolute paths. To solve:
+    - Move icons from public into src 
+    - Use relative pathing (which only works within src)
+    - Add a <base> tag to index.html
+    - Found idea in https://skryvets.com/blog/2018/09/20/an-elegant-solution-of-deploying-react-app-into-a-subdirectory/ 
+
