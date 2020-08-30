@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c65f0aae24a1221f72ecffd84d347dc2",
+    "revision": "c11da9ed8ba30ef7006ae3ad8a139982",
     "url": "/qwixx.app/index.html"
   },
   {
-    "revision": "0348c21059c51909bc58",
+    "revision": "c37995076338f3036f77",
     "url": "/qwixx.app/static/css/2.e5b300ba.chunk.css"
   },
   {
-    "revision": "ac2d178afa78a8e116e9",
+    "revision": "bcd977790faa327cf8a7",
     "url": "/qwixx.app/static/css/main.8f7db3ea.chunk.css"
   },
   {
-    "revision": "0348c21059c51909bc58",
-    "url": "/qwixx.app/static/js/2.63da58e9.chunk.js"
+    "revision": "c37995076338f3036f77",
+    "url": "/qwixx.app/static/js/2.cbc125f9.chunk.js"
   },
   {
     "revision": "5ac48c47bb3912b14c2d8de4f56d5ae8",
-    "url": "/qwixx.app/static/js/2.63da58e9.chunk.js.LICENSE.txt"
+    "url": "/qwixx.app/static/js/2.cbc125f9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ac2d178afa78a8e116e9",
-    "url": "/qwixx.app/static/js/main.97428a55.chunk.js"
+    "revision": "bcd977790faa327cf8a7",
+    "url": "/qwixx.app/static/js/main.55426f44.chunk.js"
   },
   {
     "revision": "dbebaddbd85a0eeb4ea6",
