@@ -117,3 +117,5 @@ dist
 .env.test.local
 .env.production.local
 
+# Secrets
+firebase_config.js
