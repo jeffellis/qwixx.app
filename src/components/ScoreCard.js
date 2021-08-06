@@ -1,20 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import AppHeader from "./AppHeader";
 import Penalties from "./Penalties";
 import PointsList from "./PointsList";
 import Row from "./Row.js";
-import ScoreCardContext from './ScoreCardContext';
+import GameContext from '../GameContext';
 import TotalsRow from "./TotalsRow";
 import useScoreCard from "../hooks/useScoreCard";
 
 import "./ScoreCard.scss";
-import useGame from "../useGame";
+
+import ScoreCardContext from "./ScoreCardContext";
 
 const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
-  const { currentGame, newGame, rollDice } = useGame();
+  const { currentGame, newGame, rollDice } = useContext(GameContext);
 
   const { reset, scores, setPenalties, toggleBox } = useScoreCard();
 
@@ -41,8 +42,8 @@ const ScoreCard = (props) => {
   };
 
   return (
-    <ScoreCardContext.Provider value={scoreCardContext}>
-      <div className={displayName}>
+    <div className={displayName}>
+      <ScoreCardContext.Provider value={scoreCardContext}>
         <AppHeader scoreCard={scores} onReset={onReset} />
         <Row color="red" {...rowProps} {...scores.red} />
         <Row color="yellow" {...rowProps} {...scores.yellow} />
@@ -56,8 +57,8 @@ const ScoreCard = (props) => {
           />
         </div>
         <TotalsRow scorecard={scores} />
-      </div>
-    </ScoreCardContext.Provider>
+      </ScoreCardContext.Provider>
+    </div>
   );
 };
 

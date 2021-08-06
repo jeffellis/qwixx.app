@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import firebase from "./firebase/firebase";
 
-const INITIAL_DICE_VALUES = {
+export const INITIAL_DICE_VALUES = {
     blue: [6],
     green: [6],
     red: [6],
@@ -35,9 +35,32 @@ const useGame = () => {
     );
 
     const newGame = () => {
-        const id = getGamesRef().push().key;
-        getGamesRef().child(id).set(INITIAL_GAME_VALUE);
-        setGameId(id);
+        // const id = getGamesRef().push().key;
+        // getGamesRef().child(id).set(INITIAL_GAME_VALUE);
+        joinOrCreateGame('nervous-nelly');
+    }
+
+    const joinOrCreateGame = (gameName) => {
+        getGamesRef().child(gameName).get()
+            .then((game) => {
+                if (game.val()) {
+                    setGameId(gameName)
+                    return;
+                }
+                
+                return getGamesRef()
+                    .child(gameName)
+                    .set(INITIAL_GAME_VALUE)
+                    .then(() => {
+                        setGameId(gameName);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            })
+            .catch((error) => {
+                console.error(`Error joining game ${gameName}:`, error);
+            });
     }
 
     const rollDice = () => {
@@ -47,7 +70,7 @@ const useGame = () => {
         })
     };
 
-    return { currentGame, newGame, rollDice };
+    return { currentGame, joinOrCreateGame, gameId, newGame, rollDice };
 }
 
 export default useGame;
