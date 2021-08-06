@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import ReactDice from "react-dice-complete";
 import "react-dice-complete/dist/react-dice-complete.css";
@@ -6,6 +6,7 @@ import "react-dice-complete/dist/react-dice-complete.css";
 import { BLACK, BLUE, GREEN, RED, YELLOW, WHITE } from "../Constants";
 
 import "./Dice.scss";
+import ScoreCardContext from "./ScoreCardContext";
 
 const displayName = "Dice";
 
@@ -23,7 +24,7 @@ const dice = {
     ref: null,
   },
   yellow: {
-    dotColor: WHITE,
+    dotColor: BLACK,
     faceColor: YELLOW,
     numDice: 1,
     ref: null,
@@ -43,8 +44,30 @@ const dice = {
 };
 
 const Dice = (props) => {
+  const { diceValues, onRollDice } = useContext(ScoreCardContext);
+
+  useEffect(() => {
+    if (diceValues) {
+      const { blue, green, red, white, yellow } = diceValues;
+
+      dice.white.ref.rollAll(white);
+      dice.red.ref && dice.red.ref.rollAll(red);
+      dice.yellow.ref && dice.yellow.ref.rollAll(yellow);
+      dice.green.ref && dice.green.ref.rollAll(green);
+      dice.blue.ref && dice.blue.ref.rollAll(blue);  
+    }
+  }, [diceValues]);
+
+  const rollDice = () => {
+    dice.white.ref.rollAll();
+    dice.red.ref && dice.red.ref.rollAll();
+    dice.yellow.ref && dice.yellow.ref.rollAll();
+    dice.green.ref && dice.green.ref.rollAll();
+    dice.blue.ref && dice.blue.ref.rollAll();
+  };
+  
   return (
-    <div className="DiceContainer" onClick={rollDice}>
+    <div className="DiceContainer" onClick={ onRollDice || rollDice }>
       {getDice("white")}
       {props.scoreCard.red.locked === false ? getDice("red") : null}
       {props.scoreCard.yellow.locked === false ? getDice("yellow") : null}
@@ -59,22 +82,16 @@ Dice.displayName = displayName;
 const getDice = (key) => {
   const props = {
     defaultRoll: 6,
+    disableIndividual: true,
     dieSize: 35,
     margin: 8,
     numDice: 1,
+    outline: true,
     rollTime: 1.5,
     ...dice[key],
     ref: (_dice) => (dice[key].ref = _dice),
   };
   return <ReactDice {...props} />;
-};
-
-const rollDice = () => {
-  dice.white.ref.rollAll();
-  dice.red.ref && dice.red.ref.rollAll();
-  dice.yellow.ref && dice.yellow.ref.rollAll();
-  dice.green.ref && dice.green.ref.rollAll();
-  dice.blue.ref && dice.blue.ref.rollAll();
 };
 
 export default Dice;
