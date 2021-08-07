@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Dice from "./Dice";
 
 import "./AppHeader.scss";
+import TurnInfo from "./TurnInfo";
 
 const displayName = "AppHeader";
 
@@ -11,7 +12,7 @@ const AppHeader = (props) => {
   return (
     <div className={displayName}>
       <Dice scoreCard={props.scoreCard} />
-      <span className="Title">QWIXX.APP</span>
+      <TurnInfo />
       <Button
         className="ResetButton"
         variant="secondary"

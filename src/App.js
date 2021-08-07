@@ -11,13 +11,18 @@ import useGame from "./useGame";
 import "./App.scss";
 
 function App() {
-  const { currentGame, joinOrCreateGame, newGame, rollDice } = useGame();
+  const { completeTurn, currentPlayer, diceValues, joinOrCreateGame, myTurn, newGame, numPlayers, players, rollDice } = useGame();
 
   const gameContext = {
-    currentGame,
+    completeTurn,
+    currentPlayer,
+    diceValues,
     joinOrCreateGame,
     newGame,
-    onRollDice: rollDice,
+    myTurn,
+    numPlayers,
+    players,
+    rollDice,
   };
 
   return (

@@ -44,7 +44,7 @@ const dice = {
 };
 
 const Dice = (props) => {
-  const { diceValues, onRollDice } = useContext(ScoreCardContext);
+  const { diceValues, myTurn, onRollDice } = useContext(ScoreCardContext);
 
   useEffect(() => {
     if (diceValues) {
@@ -59,6 +59,15 @@ const Dice = (props) => {
   }, [diceValues]);
 
   const rollDice = () => {
+    if (!myTurn) {
+      return;
+    }
+    
+    if (onRollDice) {
+      onRollDice();
+      return;
+    }
+
     dice.white.ref.rollAll();
     dice.red.ref && dice.red.ref.rollAll();
     dice.yellow.ref && dice.yellow.ref.rollAll();
@@ -67,7 +76,7 @@ const Dice = (props) => {
   };
   
   return (
-    <div className="DiceContainer" onClick={ onRollDice || rollDice }>
+    <div className="DiceContainer" onClick={ rollDice }>
       {getDice("white")}
       {props.scoreCard.red.locked === false ? getDice("red") : null}
       {props.scoreCard.yellow.locked === false ? getDice("yellow") : null}

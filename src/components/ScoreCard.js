@@ -15,7 +15,7 @@ import ScoreCardContext from "./ScoreCardContext";
 const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
-  const { currentGame, newGame, rollDice } = useContext(GameContext);
+  const { diceValues, myTurn, newGame, rollDice } = useContext(GameContext);
 
   const { reset, scores, setPenalties, toggleBox } = useScoreCard();
 
@@ -37,7 +37,8 @@ const ScoreCard = (props) => {
   };
 
   const scoreCardContext = {
-    diceValues: currentGame.diceValues,
+    diceValues,
+    myTurn,
     onRollDice: rollDice,
   };
 

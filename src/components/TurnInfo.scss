@@ -1,0 +1,32 @@
+.TurnInfoContainer {
+  display: flex;
+  flex: 1;
+  flex-flow: row nowrap;
+
+  .TurnInfo {
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+  }
+
+  .Title {
+    flex: 1;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .CompleteTurnButton {
+    background-color: lightgreen;
+    background-image: url("../icons/ic_done_24px.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 2.5rem;
+    margin-right: 1rem;
+    width: 2.5rem;
+  }
+}

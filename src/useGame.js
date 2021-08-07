@@ -10,25 +10,41 @@ export const INITIAL_DICE_VALUES = {
 };
 
 const INITIAL_GAME_VALUE = {
-    diceValues: INITIAL_DICE_VALUES,
-    players: 0,
+    currentTurn: {
+        diceValues: INITIAL_DICE_VALUES,
+        player: 0,    
+    }
 };
 
 const useGame = () => {
-    const [currentGame, setCurrentGame] = useState(INITIAL_GAME_VALUE);
+    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+    const [diceValues, setDiceValues] = useState();
     const [gameId, setGameId] = useState();
+    const [myPlayer, setMyPlayer] = useState({});
+    const [players, setPlayers] = useState([]);
 
     const getGamesRef = () => firebase.db.ref('games');
 
     useEffect(() => {
         if (gameId) {
-            const gameRef = getGamesRef().child(gameId);
-            const onValueChange = gameRef.on('value', (snapshot) => {
-                console.log(snapshot.val(), snapshot.toJSON());
-                setCurrentGame(snapshot.val())
+            const onDiceChange = getGamesRef().child(`${gameId}/currentTurn/diceValues`).on('value', (snapshot) => {
+                setDiceValues(snapshot.val())
             });
+
+            const onCurrentPlayerChange = getGamesRef().child(`${gameId}/currentTurn/player`).on('value', (snapshot) => {
+                setCurrentPlayerIndex(snapshot.val());
+            });
+
+            const onPlayersChange = getGamesRef().child(gameId).child('players').on('value', (playersSnapshot) => {
+                const newPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
+                setPlayers(newPlayers);
+            })
     
-            return () => gameRef.off('value', onValueChange);    
+            return () => {
+                getGamesRef().child(gameId).child('players').off('value', onPlayersChange);
+                getGamesRef().child(`${gameId}/currentTurn/diceValues`).off('value', onDiceChange);
+                getGamesRef().child(`${gameId}/currentTurn/player`).on('value', onCurrentPlayerChange);
+            }
         }
     },
         [gameId]
@@ -40,19 +56,40 @@ const useGame = () => {
         joinOrCreateGame('nervous-nelly');
     }
 
-    const joinOrCreateGame = (gameName) => {
+    const createOrResetGame = (gameId) => {
+        return getGamesRef().child(gameId).child('currentTurn')
+            .set(INITIAL_GAME_VALUE.currentTurn);
+    };
+
+    const addPlayer = (gameId, playerName) => {
+        const joinDate = new Date();
+        const playerData = {
+            joined: joinDate.toISOString(),
+            name: playerName,
+            order: Math.random(),
+        };
+
+        return getGamesRef().child(`${gameId}/players/${playerName}`)
+            .set(playerData).then(() => {
+                console.log(`Adding "${playerName}" to game ${gameId}`);
+                setMyPlayer(playerData);
+            }).catch((error) => {
+                console.error(`Error adding ${playerName} to ${gameId}`);
+            });
+    }
+
+    const joinOrCreateGame = (gameName, playerName) => {
         getGamesRef().child(gameName).get()
             .then((game) => {
                 if (game.val()) {
                     setGameId(gameName)
-                    return;
+                    return addPlayer(gameName, playerName);
                 }
                 
-                return getGamesRef()
-                    .child(gameName)
-                    .set(INITIAL_GAME_VALUE)
+                return createOrResetGame(gameName)
                     .then(() => {
                         setGameId(gameName);
+                        return addPlayer(gameName, playerName);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -65,12 +102,33 @@ const useGame = () => {
 
     const rollDice = () => {
         const diceValues = rollAllDice();
-        getGamesRef().child(gameId).update({
+        getGamesRef().child(gameId).child('currentTurn').update({
             diceValues,
         })
     };
 
-    return { currentGame, joinOrCreateGame, gameId, newGame, rollDice };
+    const getNextPlayer = () => {
+        return currentPlayerIndex === players.length - 1 ? 0 : currentPlayerIndex + 1;
+    }
+
+    const completeTurn = () => {
+        getGamesRef().child(`${gameId}/currentTurn/player`).set(getNextPlayer());
+    }
+
+    const myTurn = players[currentPlayerIndex] && myPlayer && players[currentPlayerIndex].name === myPlayer.name;
+
+    return {
+        completeTurn,
+        currentPlayer: players[currentPlayerIndex],
+        diceValues,
+        joinOrCreateGame,
+        gameId,
+        myTurn,
+        newGame,
+        numPlayers: players ? players.length : 0,
+        players,
+        rollDice,
+    };
 }
 
 export default useGame;
