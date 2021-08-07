@@ -4,9 +4,9 @@ import ReactDice from "react-dice-complete";
 import "react-dice-complete/dist/react-dice-complete.css";
 
 import { BLACK, BLUE, GREEN, RED, YELLOW, WHITE } from "../Constants";
+import GameContext from "../GameContext";
 
 import "./Dice.scss";
-import ScoreCardContext from "./ScoreCardContext";
 
 const displayName = "Dice";
 
@@ -44,7 +44,7 @@ const dice = {
 };
 
 const Dice = (props) => {
-  const { diceValues, myTurn, onRollDice } = useContext(ScoreCardContext);
+  const { diceValues, myTurn, rollDice } = useContext(GameContext);
 
   useEffect(() => {
     if (diceValues) {
@@ -58,13 +58,13 @@ const Dice = (props) => {
     }
   }, [diceValues]);
 
-  const rollDice = () => {
+  const onRollDice = () => {
     if (!myTurn) {
       return;
     }
-    
-    if (onRollDice) {
-      onRollDice();
+
+    if (rollDice) {
+      rollDice();
       return;
     }
 
@@ -76,7 +76,7 @@ const Dice = (props) => {
   };
   
   return (
-    <div className="DiceContainer" onClick={ rollDice }>
+    <div className="DiceContainer" onClick={ onRollDice }>
       {getDice("white")}
       {props.scoreCard.red.locked === false ? getDice("red") : null}
       {props.scoreCard.yellow.locked === false ? getDice("yellow") : null}
