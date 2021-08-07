@@ -6,7 +6,6 @@ const DATABASE_VERSION = 1;
 const SCORECARD_STORE = "ScoreCards";
 
 const upgrade = (db, oldVersion, newVersion, tx) => {
-  debugger;
   if (oldVersion === 0) {
     db.createObjectStore(SCORECARD_STORE);
   }

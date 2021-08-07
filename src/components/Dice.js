@@ -44,7 +44,7 @@ const dice = {
 };
 
 const Dice = (props) => {
-  const { diceValues, myTurn, rollDice } = useContext(GameContext);
+  const { diceValues, hasRolledOnThisTurn, myTurn, rollDice } = useContext(GameContext);
 
   useEffect(() => {
     if (diceValues) {
@@ -59,7 +59,7 @@ const Dice = (props) => {
   }, [diceValues]);
 
   const onRollDice = () => {
-    if (!myTurn) {
+    if (!myTurn || hasRolledOnThisTurn) {
       return;
     }
 

@@ -55,7 +55,6 @@ const initialState = produce(
 );
 
 const markIntermediateBoxes = (row, box, oldState, newState) => {
-  debugger;
   let index = row.reversed ? Number(box) + 1 : Number(box) - 1;
   while (index <= 12 && index >= 2 && row.boxState[index] === oldState) {
     row.boxState[index] = newState;
@@ -90,7 +89,6 @@ const useScoreCard = () => {
   const getFinalBox = (row) => (row.reversed ? "2" : "12");
 
   const markBoxWon = (row, value) => {
-    debugger;
     row.boxState[value] = STATES.WON;
     row.winCount++;
     markIntermediateBoxes(row, value, STATES.OPEN, STATES.BLOCKED);

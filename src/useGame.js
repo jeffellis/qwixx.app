@@ -20,6 +20,7 @@ const useGame = () => {
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
     const [diceValues, setDiceValues] = useState();
     const [gameId, setGameId] = useState();
+    const [hasRolledOnThisTurn, setHasRolledOnThisTurn] = useState(false);
     const [myPlayer, setMyPlayer] = useState({});
     const [players, setPlayers] = useState([]);
 
@@ -105,6 +106,7 @@ const useGame = () => {
         getGamesRef().child(gameId).child('currentTurn').update({
             diceValues,
         })
+        setHasRolledOnThisTurn(true);
     };
 
     const getNextPlayer = () => {
@@ -112,6 +114,7 @@ const useGame = () => {
     }
 
     const completeTurn = () => {
+        setHasRolledOnThisTurn(false);
         getGamesRef().child(`${gameId}/currentTurn/player`).set(getNextPlayer());
     }
 
@@ -121,6 +124,7 @@ const useGame = () => {
         completeTurn,
         currentPlayer: players[currentPlayerIndex],
         diceValues,
+        hasRolledOnThisTurn,
         joinOrCreateGame,
         gameId,
         myTurn,
