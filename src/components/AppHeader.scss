@@ -13,4 +13,19 @@
     height: 2.5rem;
     width: 2.5rem;
   }
+
+  .BackButton {
+    background-color: transparent;
+    background-image: url("../icons/ic_arrow_back_black_24dp.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 2.5rem;
+    margin-right: 0.8rem;
+    width: 2.5rem;
+  }
+
+  .die-container {
+    margin: 0.2rem 0 0 0.8rem !important;
+  }
 }

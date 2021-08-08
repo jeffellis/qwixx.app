@@ -9,6 +9,7 @@ import TotalsRow from "./TotalsRow";
 import useScoreCard from "../hooks/useScoreCard";
 
 import "./ScoreCard.scss";
+import { withRouter } from "react-router-dom";
 
 const displayName = "ScoreCard";
 
@@ -30,13 +31,17 @@ const ScoreCard = (props) => {
     reset();
   }
 
+  const onBack = () => {
+    props.history.push('/');
+  }
+
   const rowProps = {
     onBoxToggled,
   };
 
   return (
     <div className={displayName}>
-      <AppHeader scoreCard={scores} onReset={onReset} />
+      <AppHeader scoreCard={scores} onBack={onBack} onReset={onReset} />
       <Row color="red" {...rowProps} {...scores.red} />
       <Row color="yellow" {...rowProps} {...scores.yellow} />
       <Row color="green" {...rowProps} {...scores.green} />
@@ -53,4 +58,4 @@ const ScoreCard = (props) => {
   );
 };
 
-export default ScoreCard;
+export default withRouter(ScoreCard);
