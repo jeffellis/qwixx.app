@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/qwixx.app/static/css/main.8f7db3ea.chunk.css",
+    "main.js": "/qwixx.app/static/js/main.c7ba67c7.chunk.js",
+    "main.js.map": "/qwixx.app/static/js/main.c7ba67c7.chunk.js.map",
+    "runtime-main.js": "/qwixx.app/static/js/runtime-main.47e59be7.js",
+    "runtime-main.js.map": "/qwixx.app/static/js/runtime-main.47e59be7.js.map",
+    "static/css/2.550a6f95.chunk.css": "/qwixx.app/static/css/2.550a6f95.chunk.css",
+    "static/js/2.0b9b13fa.chunk.js": "/qwixx.app/static/js/2.0b9b13fa.chunk.js",
+    "static/js/2.0b9b13fa.chunk.js.map": "/qwixx.app/static/js/2.0b9b13fa.chunk.js.map",
+    "index.html": "/qwixx.app/index.html",
+    "precache-manifest.3d2f90b5fae27b2df272690ad48c4fc9.js": "/qwixx.app/precache-manifest.3d2f90b5fae27b2df272690ad48c4fc9.js",
+    "service-worker.js": "/qwixx.app/service-worker.js",
+    "static/css/2.550a6f95.chunk.css.map": "/qwixx.app/static/css/2.550a6f95.chunk.css.map",
+    "static/css/main.8f7db3ea.chunk.css.map": "/qwixx.app/static/css/main.8f7db3ea.chunk.css.map",
+    "static/js/2.0b9b13fa.chunk.js.LICENSE.txt": "/qwixx.app/static/js/2.0b9b13fa.chunk.js.LICENSE.txt",
+    "static/media/Row.scss": "/qwixx.app/static/media/ic_lock_open_48px.4e31b187.svg",
+    "static/media/AppHeader.scss": "/qwixx.app/static/media/ic_power_settings_new_24px.677b06db.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.47e59be7.js",
+    "static/css/2.550a6f95.chunk.css",
+    "static/js/2.0b9b13fa.chunk.js",
+    "static/css/main.8f7db3ea.chunk.css",
+    "static/js/main.c7ba67c7.chunk.js"
+  ]
+}
