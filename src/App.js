@@ -11,12 +11,13 @@ import useGame from "./useGame";
 import "./App.scss";
 
 function App() {
-  const { completeTurn, currentPlayer, diceValues, hasRolledOnThisTurn, joinOrCreateGame, myTurn, newGame, numPlayers, players, rollDice } = useGame();
+  const { completeTurn, currentPlayer, diceValues, gameId, hasRolledOnThisTurn, joinOrCreateGame, myTurn, newGame, numPlayers, players, rollDice } = useGame();
 
   const gameContext = {
     completeTurn,
     currentPlayer,
     diceValues,
+    gameId,
     hasRolledOnThisTurn,
     joinOrCreateGame,
     newGame,
