@@ -14,8 +14,6 @@ import { withRouter } from "react-router-dom";
 const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
-  const { newGame } = useContext(GameContext);
-
   const { reset, scores, setPenalties, toggleBox } = useScoreCard();
 
   const onPenaltyToggle = (penaltyCount) => {
@@ -27,7 +25,6 @@ const ScoreCard = (props) => {
   };
 
   const onReset = () => {
-    newGame();
     reset();
   }
 
