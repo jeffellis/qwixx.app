@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import AppHeader from "./AppHeader";
 import Penalties from "./Penalties";
 import PointsList from "./PointsList";
 import Row from "./Row.js";
-import GameContext from '../GameContext';
 import TotalsRow from "./TotalsRow";
 import useScoreCard from "../hooks/useScoreCard";
 
