@@ -1,16 +1,15 @@
-import app from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/database';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
 
 import firebaseConfig from "./firebase-config";
 class Firebase {
     constructor() {
         // Initialize Firebase
-        app.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
         // app.analytics();
-        this.auth = app.auth();
-        this.db = app.database();
+        this.auth = firebase.auth();
+        this.db = firebase.database();
     }
 
     async register(name, email, password) {
@@ -31,6 +30,6 @@ class Firebase {
     }
 }
 
-const firebase = new Firebase();
+const _firebase = new Firebase();
 
-export default firebase;
+export default _firebase;
