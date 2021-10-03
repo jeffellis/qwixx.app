@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 
 const noopAuthenticate = () => true;
 
+const noErrors = (errors) => {
+  return (
+    !errors ||
+    Object.keys(errors).length === 0 ||
+    Object.values(errors).every((error) => !error)
+  );
+};
+
 function useFormValidation(initialState, validate, authenticate = noopAuthenticate) {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
@@ -10,8 +18,7 @@ function useFormValidation(initialState, validate, authenticate = noopAuthentica
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
       if (isSubmitting) {
-        const noErrors = Object.keys(errors).length === 0;
-        if (noErrors) {
+        if (noErrors(errors)) {
             authenticate(values);
         }
         setSubmitting(false);

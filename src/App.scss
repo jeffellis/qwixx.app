@@ -9,6 +9,18 @@
   margin: 2rem 4rem;
 }
 
+.text-start {
+  text-align: start;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-center {
+  text-align: center;
+}
+
 // Large screens
 @media (min-height: 40rem) {
   .App {

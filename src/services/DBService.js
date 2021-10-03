@@ -2,13 +2,21 @@ import { openDB } from "idb";
 
 const CURRENT_SCORECARD_KEY = "current";
 const DATABASE_NAME = "QWIXX";
-const DATABASE_VERSION = 1;
+const DATABASE_VERSION = 2;
 const SCORECARD_STORE = "ScoreCards";
+const APP_STORE = "App";
+const USER_KEY = "user";
 
 const upgrade = (db, oldVersion, newVersion, tx) => {
   if (oldVersion === 0) {
     db.createObjectStore(SCORECARD_STORE);
+    oldVersion++;
   }
+  if (oldVersion === 1) {
+    db.createObjectStore(APP_STORE);
+    oldVersion++;
+  }
+
 };
 
 let dbPromise;
@@ -35,4 +43,12 @@ export const saveScoreCard = async (scorecard) => {
 
 export const getScoreCard = async () => {
   return dbPromise.get(SCORECARD_STORE, CURRENT_SCORECARD_KEY);
+};
+
+export const saveUser = async (user) => {
+  return await dbPromise.put(APP_STORE, user, USER_KEY);
+};
+
+export const getUser = async () => {
+  return dbPromise.get(APP_STORE, USER_KEY);
 };
