@@ -4,7 +4,7 @@ import GameContext from '../GameContext';
 import './TurnInfo.scss';
 
 const TurnInfo = () => {
-    const { completeTurn, currentPlayer, myTurn, numPlayers } = useContext(GameContext);
+    const { completeTurn, currentPlayer, gameId, myTurn, numPlayers } = useContext(GameContext);
 
     const getTitle = () => {
         return <span className="Title">QWIXX.APP</span>            
@@ -15,10 +15,10 @@ const TurnInfo = () => {
         return (
             <>
                 <div className="TurnInfo">
-                    <p>Players: {numPlayers}</p>
+                    <p>{`"${gameId}" (${numPlayers} players)`}</p>
                     {myTurn
-                        ? <p>It's your turn</p>
-                        : <p>{currentPlayer.name} is playing</p>
+                        ? <p><span className="your-turn">{`It's your turn`}</span></p>
+                        : <p>{`${currentPlayer.name} is playing`}</p>
                     }
                 </div>
                 {myTurn && <button className="btn btn-outline-dark CompleteTurnButton" onClick={completeTurn} />}

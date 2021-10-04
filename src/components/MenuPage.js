@@ -21,10 +21,9 @@ const MenuPage = () => {
         <div className="app-page WelcomePage">
             <h2>Qwixx</h2>
             <div className="actionList list-group-flush">
-                {gameId && <Link className={listItemClassNames} to={`/scorecard/${gameId}`}>Return to Game</Link>}
+                {gameId && <Link className={listItemClassNames} to={`/${gameId}/scorecard`}>Return to Game</Link>}
                 <Link className={authUser ? listItemClassNames : disabledListItemClassNames } to="/new">Create or Join a Game</Link>
                 <Link className={disabledListItemClassNames} to="/howtoplay">How To Play</Link>
-                <Link className={disabledListItemClassNames} to="/leaderboard">Leaderboard</Link>
                 {authUser ?
                     <Button className={listItemClassNames} variant="link" onClick={signOff}>{`Logout (${authUser.displayName})`}</Button> :
                     <Link className={listItemClassNames} to="/login">Sign In</Link> 

@@ -51,7 +51,7 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
 
             subscriptions.current.push(
                 firebase.subscribe(`games/${gameId}/currentTurn/player`,
-                    (snapshot) => {
+                    (snapshot) => {                    
                         setCurrentPlayerIndex(snapshot.val());
                     }
                 )
@@ -60,13 +60,15 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
             subscriptions.current.push(
                 firebase.subscribe(`games/${gameId}/players`,
                     (playersSnapshot) => {
-                        setPlayers((currentPlayers) => {
-                            const updatedPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
-                            const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
-                            console.log(newPlayers)
-                            onPlayersAdded && onPlayersAdded(newPlayers);
-                            return updatedPlayers;
-                        });
+                        if (playersSnapshot.val()) {
+                            setPlayers((currentPlayers) => {
+                                const updatedPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
+                                const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
+                                console.log(newPlayers)
+                                onPlayersAdded && onPlayersAdded(newPlayers);
+                                return updatedPlayers;
+                            });                                
+                        }
                     }
                 )
             );
@@ -85,8 +87,7 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
     }
 
     const createOrResetGame = (gameId) => {
-        return getGamesRef().child(gameId).child('currentTurn')
-            .set(INITIAL_GAME_VALUE.currentTurn);
+        return firebase.set(`games/${gameId}/currentTurn`, INITIAL_GAME_VALUE.currentTurn);
     };
 
     const addPlayer = async (gameId, playerName) => {
@@ -98,7 +99,7 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
         };
 
         try {
-            await firebase.set(`game/${gameId}/players/${playerName}`, playerData);
+            await firebase.set(`games/${gameId}/players/${playerName}`, playerData);
             setMyPlayer(playerData);
         } catch (error) {
             console.error(`Error adding ${playerName} to ${gameId}`);
@@ -110,9 +111,11 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
             const game = await firebase.get(`games/${gameName}`);
             if (game.val()) {
                 setGameId(gameName)
-                return addPlayer(gameName, playerName);
+                await addPlayer(gameName, playerName);
+                return;
             }
             await createOrResetGame(gameName);
+            await addPlayer(gameName, playerName);
             setGameId(gameName);
 
         } catch (error) {
