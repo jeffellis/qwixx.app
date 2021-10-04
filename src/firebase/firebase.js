@@ -5,7 +5,14 @@ import {
     signInWithEmailAndPassword,
     updateProfile
 } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+import {
+    get,
+    getDatabase,
+    onValue,
+    ref,
+    set,
+    update,
+} from 'firebase/database';
 
 import firebaseConfig from "./firebase-config";
 class Firebase {
@@ -41,6 +48,27 @@ class Firebase {
 
     getUser() {
         return getAuth().currentUser;
+    }
+
+    getRef(path) {
+        return ref(this.db, path);
+    }
+
+    subscribe(path, onValueChange) {
+        const dbRef = this.getRef(path);
+        return onValue(dbRef, onValueChange);
+    }
+
+    async get(path) {
+        return get(this.getRef(path));
+    }
+
+    async set(path, value) {
+        return set(this.getRef(path), value);
+    }
+
+    async update(path, values) {
+        return update(this.getRef(path), values);
     }
 }
 

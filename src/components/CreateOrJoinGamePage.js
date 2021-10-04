@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import GameContext from '../GameContext';
+import UserContext from '../UserContext';
 import useFormValidation from '../useFormValidation';
 
 const MIN_NAME_LENGTH = 5;
@@ -12,10 +14,11 @@ const INITIAL_STATE = {
 
 const CreateOrJoinGamePage  = () => {
     const history = useHistory();
+    const { authUser } = useContext(UserContext);
     const { joinOrCreateGame } = useContext(GameContext);
 
     const handleJoinOrCreate = (values) => {
-        joinOrCreateGame(values.gameId, values.playerName);
+        joinOrCreateGame(values.gameId, authUser.displayName);
         history.push(`/scorecard/${values.gameId}`);
     };
     const { errors, handleBlur, handleChange, handleSubmit, values } = useFormValidation(INITIAL_STATE, validate, handleJoinOrCreate);
@@ -28,11 +31,6 @@ const CreateOrJoinGamePage  = () => {
                     <input type="text" className="form-control" id="gameId" onBlur={handleBlur} name="gameId" onChange={handleChange} value={values.gameId}/>
                 </div>
                 {errors.gameId && <p className='text-danger'>{errors.gameId}</p>}
-                <div className="mb-3">
-                    <label htmlFor="playerName" className="form-label">Enter your name or handle</label>
-                    <input type="text" className="form-control" id="playerName" onBlur={handleBlur} name="playerName" onChange={handleChange} value={values.playerName}/>
-                </div>
-                {errors.playerName && <p className='text-danger'>{errors.playerName}</p>}
                 <button className="btn btn-primary" type="submit">Create</button>
             </form>
         </div>
@@ -46,10 +44,6 @@ const validate = (values) => {
     
     if (values.gameId.length < MIN_NAME_LENGTH) {
         errors.gameId = `Game names must be at least ${MIN_NAME_LENGTH} characters long`;
-    }
-
-    if (!values.playerName) {
-        errors.playerName = 'Make up a name or we will make up one for you!';
     }
 
     return errors;
