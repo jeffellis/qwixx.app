@@ -74,33 +74,11 @@ function App() {
     return await saveUser(null);
   };
 
-  const {
-    completeTurn,
-    currentPlayer,
-    diceValues,
-    gameId,
-    hasRolledOnThisTurn,
-    joinOrCreateGame,
-    myTurn,
-    newGame,
-    numPlayers,
-    players,
-    rollDice
-  } = useGame({ onPlayersAdded });
+  const game = useGame({ onPlayersAdded });
 
   const gameContext = {
     announcement,
-    completeTurn,
-    currentPlayer,
-    diceValues,
-    gameId,
-    hasRolledOnThisTurn,
-    joinOrCreateGame,
-    newGame,
-    myTurn,
-    numPlayers,
-    players,
-    rollDice,
+    ...game,
   };
 
   const userContext = {
@@ -109,25 +87,26 @@ function App() {
     login,
     logout,
   };
+
   console.log('user', authUser);
   return (
     <div className="App">
-      <UserContext.Provider value={userContext}>        
-        <GameContext.Provider value={gameContext}>
-          { announcement && <Announcements messages={announcement}/> }
-          <BrowserRouter>
-            <Switch>
-              <Route path="/" exact={true} component={MenuPage} />
-              <Route path="/login" component={SignOnPage}/>
-              <Route path="/new" component={CreateOrJoinGamePage} />
-              <Route path="/profile" component={CreateProfilePage} />
-              {/* <Route path="/howtoplay" component={HowToPlayPage} /> */}
-              {/* <Route path="/leaderboard" component={Leaderboard} /> */}
-              <Route path="/scorecard/:gameId" component={ScoreCard} />
-            </Switch>
-          </BrowserRouter>
-        </GameContext.Provider>
-      </UserContext.Provider>
+      <BrowserRouter>
+        <UserContext.Provider value={userContext}>        
+          <GameContext.Provider value={gameContext}>
+            { announcement && <Announcements messages={announcement}/> }
+              <Switch>
+                <Route path="/" exact={true} component={MenuPage} />
+                <Route path="/login" component={SignOnPage}/>
+                <Route path="/new" component={CreateOrJoinGamePage} />
+                <Route path="/profile" component={CreateProfilePage} />
+                {/* <Route path="/howtoplay" component={HowToPlayPage} /> */}
+                {/* <Route path="/leaderboard" component={Leaderboard} /> */}
+                <Route path="/:gameId/scorecard" component={ScoreCard} />
+              </Switch>
+          </GameContext.Provider>
+        </UserContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }

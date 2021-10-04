@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import AppHeader from "./AppHeader";
 import Penalties from "./Penalties";
@@ -8,12 +8,24 @@ import TotalsRow from "./TotalsRow";
 import useScoreCard from "../hooks/useScoreCard";
 
 import "./ScoreCard.scss";
-import { withRouter } from "react-router-dom";
+import { withRouter , useParams} from "react-router-dom";
+import GameContext from '../GameContext'
 
 const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
+  const params = useParams();
+  const { gameId, setGameId } = useContext(GameContext);
   const { reset, scores, setPenalties, toggleBox } = useScoreCard();
+
+  useEffect(
+    () => {
+      if (params.gameId !== gameId) {
+        setGameId(params.gameId);
+      }
+    },
+    []
+  );
 
   const onPenaltyToggle = (penaltyCount) => {
     setPenalties(penaltyCount);

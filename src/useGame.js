@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { without } from "lodash"
 import firebase from "./firebase/firebase";
 
@@ -26,38 +26,57 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
     const [hasRolledOnThisTurn, setHasRolledOnThisTurn] = useState(false);
     const [myPlayer, setMyPlayer] = useState({});
     const [players, setPlayers] = useState([]);
+    const subscriptions = useRef([]);
 
     const getGamesRef = () => firebase.getRef('games');
 
     useEffect(() => {
-        if (gameId) {
-            const cancelDiceChange = firebase.subscribe(`games/${gameId}/currentTurn/diceValues`, (snapshot) => {
-                setDiceValues(snapshot.val())
-            });
+        initializeGame(gameId);
 
-            const cancelCurrentPlayerChange = firebase.subscribe(`games/${gameId}/currentTurn/player`, (snapshot) => {
-                setCurrentPlayerIndex(snapshot.val());
-            });
-
-            const cancelPlayersChange = firebase.subscribe(`games/${gameId}/players`, (playersSnapshot) => {
-                setPlayers((currentPlayers) => {
-                    const updatedPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
-                    const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
-                    console.log(newPlayers)
-                    onPlayersAdded && onPlayersAdded(newPlayers);
-                    return updatedPlayers;
-                });
-            })
-    
-            return () => {
-                cancelCurrentPlayerChange();
-                cancelDiceChange();
-                cancelPlayersChange();
-            }
-        }
+        return unsubscribeAll;
     },
         [gameId]
     );
+
+    const initializeGame = (gameId) => {
+        if (gameId) {
+            unsubscribeAll();
+            subscriptions.current.push(
+                firebase.subscribe(`games/${gameId}/currentTurn/diceValues`,
+                    (snapshot) => {
+                        setDiceValues(snapshot.val())
+                    }
+                )
+            );
+
+            subscriptions.current.push(
+                firebase.subscribe(`games/${gameId}/currentTurn/player`,
+                    (snapshot) => {
+                        setCurrentPlayerIndex(snapshot.val());
+                    }
+                )
+            );
+
+            subscriptions.current.push(
+                firebase.subscribe(`games/${gameId}/players`,
+                    (playersSnapshot) => {
+                        setPlayers((currentPlayers) => {
+                            const updatedPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
+                            const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
+                            console.log(newPlayers)
+                            onPlayersAdded && onPlayersAdded(newPlayers);
+                            return updatedPlayers;
+                        });
+                    }
+                )
+            );
+        }
+    }
+
+    const unsubscribeAll = () => {
+        subscriptions.current.forEach((sub) => sub());
+        subscriptions.current = [];
+    }
 
     const newGame = () => {
         // const id = getGamesRef().push().key;
@@ -134,6 +153,7 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
         numPlayers: players ? players.length : 0,
         players,
         rollDice,
+        setGameId,
     };
 }
 
