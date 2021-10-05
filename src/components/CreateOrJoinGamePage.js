@@ -31,7 +31,7 @@ const CreateOrJoinGamePage  = () => {
                     <input type="text" className="form-control" id="gameId" onBlur={handleBlur} name="gameId" onChange={handleChange} value={values.gameId}/>
                 </div>
                 {errors.gameId && <p className='text-danger'>{errors.gameId}</p>}
-                <button className="btn btn-primary" type="submit">Create</button>
+                <button className="btn btn-primary" type="submit">Join</button>
             </form>
         </div>
     );

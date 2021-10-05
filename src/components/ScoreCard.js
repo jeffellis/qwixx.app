@@ -15,7 +15,7 @@ const displayName = "ScoreCard";
 
 const ScoreCard = (props) => {
   const params = useParams();
-  const { gameId, setGameId } = useContext(GameContext);
+  const { currentPlayer, gameId, setGameId } = useContext(GameContext);
   const { reset, scores, setPenalties, toggleBox } = useScoreCard();
 
   useEffect(
@@ -47,6 +47,10 @@ const ScoreCard = (props) => {
     onBoxToggled,
   };
 
+  if (!currentPlayer) {
+    return null;
+  } 
+  
   return (
     <div className={displayName}>
       <AppHeader scoreCard={scores} onBack={onBack} onReset={onReset} />

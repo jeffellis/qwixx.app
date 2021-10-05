@@ -10,6 +10,8 @@ export const INITIAL_DICE_VALUES = {
     yellow: [6],
 };
 
+const MAX_PLAYERS = 5;
+
 const INITIAL_GAME_VALUE = {
     currentTurn: {
         diceValues: INITIAL_DICE_VALUES,
@@ -19,7 +21,7 @@ const INITIAL_GAME_VALUE = {
 
 const getPlayerNames = (players) => players.map((player) => player.name);
 
-const useGame = ({ initialGameId, onPlayersAdded }) => {
+const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
     const [diceValues, setDiceValues] = useState();
     const [gameId, setGameId] = useState(initialGameId);
@@ -106,12 +108,22 @@ const useGame = ({ initialGameId, onPlayersAdded }) => {
         }
     }
 
+    const playerCount = (players = {}) => {
+        return Object.keys(players).length;
+    };
+
     const joinOrCreateGame = async (gameName, playerName) => {
         try {
-            const game = await firebase.get(`games/${gameName}`);
-            if (game.val()) {
-                setGameId(gameName)
-                await addPlayer(gameName, playerName);
+            const gameRef = await firebase.get(`games/${gameName}`);
+            const gameData = gameRef.val();
+            if (gameData) {
+                if (playerCount(gameData?.players) < MAX_PLAYERS) {
+                    setGameId(gameName)
+                    await addPlayer(gameName, playerName);    
+                } else {
+                    onError && onError(`${gameName} already has ${MAX_PLAYERS} players`);
+                    setGameId(null);
+                }
                 return;
             }
             await createOrResetGame(gameName);

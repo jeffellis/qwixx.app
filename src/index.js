@@ -7,13 +7,16 @@ import App from "./App";
 import { initDB } from "./services/DBService";
 
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
 
 async function init() {
   await initDB();
 
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
   );
