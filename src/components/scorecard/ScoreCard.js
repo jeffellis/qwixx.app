@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from "react";
 
-import AppHeader from "./AppHeader";
+import AppHeader from "./ScoreCardHeader";
 import Penalties from "./Penalties";
 import PointsList from "./PointsList";
 import Row from "./Row.js";
 import TotalsRow from "./TotalsRow";
-import useScoreCard from "../hooks/useScoreCard";
+import useScoreCard from "../../hooks/useScoreCard";
 
 import "./ScoreCard.scss";
-import { withRouter , useParams} from "react-router-dom";
-import GameContext from '../GameContext'
+import { useParams} from "react-router-dom";
+import GameContext from '../../GameContext'
 
 const displayName = "ScoreCard";
 
@@ -39,10 +39,6 @@ const ScoreCard = (props) => {
     reset();
   }
 
-  const onBack = () => {
-    props.history.push('/');
-  }
-
   const rowProps = {
     onBoxToggled,
   };
@@ -53,7 +49,7 @@ const ScoreCard = (props) => {
   
   return (
     <div className={displayName}>
-      <AppHeader scoreCard={scores} onBack={onBack} onReset={onReset} />
+      <AppHeader scoreCard={scores} onReset={onReset} />
       <Row color="red" {...rowProps} {...scores.red} />
       <Row color="yellow" {...rowProps} {...scores.yellow} />
       <Row color="green" {...rowProps} {...scores.green} />
@@ -70,4 +66,4 @@ const ScoreCard = (props) => {
   );
 };
 
-export default withRouter(ScoreCard);
+export default ScoreCard;

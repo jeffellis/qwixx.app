@@ -1,8 +1,9 @@
 import React from "react";
 
+import { POINT_VALUES, PENALTY } from "../../Constants";
+import { countWonBoxes } from "../../hooks/useScoreCard";
+
 import "./TotalsRow.scss";
-import { POINT_VALUES, PENALTY } from "../Constants";
-import { countWonBoxes } from "../hooks/useScoreCard";
 
 const displayName = "TotalsRow";
 

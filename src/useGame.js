@@ -101,7 +101,6 @@ const useGame = ({ onError, onPlayersAdded, user }) => {
 
     const addPlayer = async (gameId, user) => {
         const joinDate = new Date();
-        debugger;
         const playerData = {
             joined: joinDate.toISOString(),
             name: user.displayName,

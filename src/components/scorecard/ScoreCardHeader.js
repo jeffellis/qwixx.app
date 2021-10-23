@@ -2,13 +2,14 @@ import React from "react";
 
 import Dice from "./Dice";
 
-import "./AppHeader.scss";
 import TurnInfo from "./TurnInfo";
-import BackButton from "./BackButton";
+import BackButton from "../BackButton";
 
-const displayName = "AppHeader";
+import "./ScoreCardHeader.scss";
 
-const AppHeader = (props) => {
+const displayName = "ScoreCardHeader";
+
+const ScoreCardHeader = (props) => {
   return (
     <div className={displayName}>
       <BackButton />
@@ -19,4 +20,4 @@ const AppHeader = (props) => {
   );
 };
 
-export default AppHeader;
+export default ScoreCardHeader;

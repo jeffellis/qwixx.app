@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from "react";
 import ReactDice from "react-dice-complete";
 import "react-dice-complete/dist/react-dice-complete.css";
 
-import { BLACK, BLUE, GREEN, RED, YELLOW, WHITE } from "../Constants";
-import GameContext from "../GameContext";
+import { BLACK, BLUE, GREEN, RED, YELLOW, WHITE } from "../../Constants";
+import GameContext from "../../GameContext";
 
 import "./Dice.scss";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { POINT_VALUES } from "../Constants";
+import { POINT_VALUES } from "../../Constants";
 
 import "./PointsList.scss";
 

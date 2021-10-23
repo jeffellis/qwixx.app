@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { omit } from "lodash";
 import { Route, Switch, useHistory } from 'react-router-dom';
 
-import ScoreCard from "./components/ScoreCard";
+import ScoreCard from "./components/scorecard/ScoreCard";
 import MenuPage from './components/MenuPage'
 
 import CreateOrJoinGamePage from './components/CreateOrJoinGamePage'

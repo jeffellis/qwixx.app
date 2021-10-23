@@ -4,7 +4,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
 import "./Row.scss";
-import { STATES, LOCK_COLUMN } from "../Constants";
+import { STATES, LOCK_COLUMN } from "../../Constants";
 
 const displayName = "Row";
 
