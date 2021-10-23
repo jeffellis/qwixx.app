@@ -77,7 +77,7 @@ const useGame = ({ onError, onPlayersAdded, user }) => {
                         const snapshot = playersSnapshot.val();
                         if (snapshot) {
                             setPlayers((currentPlayers) => {
-                                const updatedPlayers = Object.values(snapshot).sort((p1, p2) => p2.order - p1.order);
+                                const updatedPlayers = Object.values(snapshot).sort((p1, p2) => p2.joined - p1.joined);
                                 const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
                                 onPlayersAdded && onPlayersAdded(newPlayers);
                                 console.log('players updated', updatedPlayers);
@@ -105,7 +105,6 @@ const useGame = ({ onError, onPlayersAdded, user }) => {
         const playerData = {
             joined: joinDate.toISOString(),
             name: user.displayName,
-            order: Math.random(),
             uid: user.uid,
         };
 
