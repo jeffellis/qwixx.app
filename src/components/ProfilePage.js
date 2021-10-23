@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import UserContext from '../UserContext';
@@ -13,6 +13,12 @@ const INITIAL_STATE = {
     password: "",
 };
 
+const AUTH_ERRORS = {
+    "auth/email-already-in-use": "A user with this Email already exists",
+    "auth/user-not-found": "No user was found for this Email Address",
+    "auth/wrong-password": "Password does not match",
+};
+
 export const ProfilePage = () => {
     return <SignOnPage/>
 }
@@ -20,14 +26,16 @@ export const ProfilePage = () => {
 export const CreateProfilePage = () => {
     const history = useHistory();
     const { createUser } = useContext(UserContext);
+    const [authError, setAuthError] = useState();   
 
     const createProfile = async (values) => {
         try {
             await createUser(values);
-        } catch (err) {
-            console.error(err);
+            history.push('/');
+        } catch (error) {
+            console.error(error);
+            setAuthError(error.code);            
         }
-        history.push('/');
     };
 
     const validate = (values) => {
@@ -59,6 +67,7 @@ export const CreateProfilePage = () => {
                 <PasswordPrompt {...promptProps} />                
                 <button className="btn btn-primary" type="submit">Create</button>
             </form>
+            <div className='text-danger mt-2'>{authError ? (AUTH_ERRORS[authError] || authError) : ''}</div>
         </div>
     );
 }
@@ -66,6 +75,7 @@ export const CreateProfilePage = () => {
 export const SignOnPage = () => {
     const history = useHistory();
     const { login } = useContext(UserContext);
+    const [authError, setAuthError] = useState();
 
     const handleProfileSubmit = async (values) => {
         try {
@@ -73,6 +83,7 @@ export const SignOnPage = () => {
             history.push('/');
         } catch (error) {
             console.error(error);
+            setAuthError(error.code);
         }
     };
 
@@ -104,6 +115,7 @@ export const SignOnPage = () => {
                 <button className="btn btn-primary" type="submit">Sign In</button>
                 <Link className="ml-3" to="/profile">Create a new user</Link>
             </form>
+            <div className='text-danger mt-2'>{authError ? (AUTH_ERRORS[authError] || authError) : ''}</div>
         </div>
     );
 };
