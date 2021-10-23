@@ -21,10 +21,12 @@ const INITIAL_GAME_VALUE = {
 
 const getPlayerNames = (players) => players.map((player) => player.name);
 
-const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
+const findPlayerForUser = (players, user) => players.find((player) => player.uid === user.uid);
+
+const useGame = ({ onError, onPlayersAdded, user }) => {
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
-    const [diceValues, setDiceValues] = useState();
-    const [gameId, setGameId] = useState(initialGameId);
+    const [diceValues, setDiceValues] = useState(null);
+    const [gameId, setGameId] = useState(null);
     const [hasRolledOnThisTurn, setHasRolledOnThisTurn] = useState(false);
     const [myPlayer, setMyPlayer] = useState({});
     const [players, setPlayers] = useState([]);
@@ -39,6 +41,16 @@ const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
     },
         [gameId]
     );
+
+    useEffect(() => {
+        if (user) {
+            const playerForUser = findPlayerForUser(players, user);
+            if (playerForUser) {
+                setMyPlayer(playerForUser);
+                console.log('effect: player set', playerForUser);    
+            }
+        }
+    }, [players, user]);
 
     const initializeGame = (gameId) => {
         if (gameId) {
@@ -62,14 +74,15 @@ const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
             subscriptions.current.push(
                 firebase.subscribe(`games/${gameId}/players`,
                     (playersSnapshot) => {
-                        if (playersSnapshot.val()) {
+                        const snapshot = playersSnapshot.val();
+                        if (snapshot) {
                             setPlayers((currentPlayers) => {
-                                const updatedPlayers = Object.values(playersSnapshot.val()).sort((p1, p2) => p2.order - p1.order);
+                                const updatedPlayers = Object.values(snapshot).sort((p1, p2) => p2.order - p1.order);
                                 const newPlayers = without(getPlayerNames(updatedPlayers), ...getPlayerNames(currentPlayers))
-                                console.log(newPlayers)
                                 onPlayersAdded && onPlayersAdded(newPlayers);
+                                console.log('players updated', updatedPlayers);
                                 return updatedPlayers;
-                            });                                
+                            });                            
                         }
                     }
                 )
@@ -92,19 +105,21 @@ const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
         return firebase.set(`games/${gameId}/currentTurn`, INITIAL_GAME_VALUE.currentTurn);
     };
 
-    const addPlayer = async (gameId, playerName) => {
+    const addPlayer = async (gameId, user) => {
         const joinDate = new Date();
+        debugger;
         const playerData = {
             joined: joinDate.toISOString(),
-            name: playerName,
+            name: user.displayName,
             order: Math.random(),
+            uid: user.uid,
         };
 
         try {
-            await firebase.set(`games/${gameId}/players/${playerName}`, playerData);
+            await firebase.set(`games/${gameId}/players/${playerData.name}`, playerData);
             setMyPlayer(playerData);
         } catch (error) {
-            console.error(`Error adding ${playerName} to ${gameId}`);
+            console.error(`Error adding ${playerData.name} to ${gameId}`);
         }
     }
 
@@ -112,14 +127,16 @@ const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
         return Object.keys(players).length;
     };
 
-    const joinOrCreateGame = async (gameName, playerName) => {
+    const joinOrCreateGame = async (gameName, user) => {
         try {
             const gameRef = await firebase.get(`games/${gameName}`);
             const gameData = gameRef.val();
             if (gameData) {
                 if (playerCount(gameData?.players) < MAX_PLAYERS) {
                     setGameId(gameName)
-                    await addPlayer(gameName, playerName);    
+                    if (!gameData?.players[user.displayName]) {
+                        await addPlayer(gameName, user);    
+                    }
                 } else {
                     onError && onError(`${gameName} already has ${MAX_PLAYERS} players`);
                     setGameId(null);
@@ -127,7 +144,7 @@ const useGame = ({ initialGameId, onError, onPlayersAdded }) => {
                 return;
             }
             await createOrResetGame(gameName);
-            await addPlayer(gameName, playerName);
+            await addPlayer(gameName, user);
             setGameId(gameName);
 
         } catch (error) {

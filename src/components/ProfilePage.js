@@ -22,7 +22,6 @@ export const CreateProfilePage = () => {
     const { createUser } = useContext(UserContext);
 
     const createProfile = async (values) => {
-        console.log(values);
         try {
             await createUser(values);
         } catch (err) {
@@ -69,7 +68,6 @@ export const SignOnPage = () => {
     const { login } = useContext(UserContext);
 
     const handleProfileSubmit = async (values) => {
-        console.log(values);
         try {
             await login(values);
             history.push('/');

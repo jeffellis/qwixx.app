@@ -81,7 +81,7 @@ function App() {
     return await saveUser(null);
   };
 
-  const game = useGame({ onError, onPlayersAdded });
+  const game = useGame({ onError, onPlayersAdded, user: authUser });
 
   const gameContext = {
     announcement,
@@ -95,7 +95,6 @@ function App() {
     logout,
   };
 
-  console.log('user', authUser);
   return (
     <div className="App">
       <UserContext.Provider value={userContext}>        

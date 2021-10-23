@@ -18,7 +18,7 @@ const CreateOrJoinGamePage  = () => {
     const { joinOrCreateGame } = useContext(GameContext);
 
     const handleJoinOrCreate = (values) => {
-        joinOrCreateGame(values.gameId, authUser.displayName);
+        joinOrCreateGame(values.gameId, authUser);
         history.push(`/${values.gameId}/scorecard`);
     };
     const { errors, handleBlur, handleChange, handleSubmit, values } = useFormValidation(INITIAL_STATE, validate, handleJoinOrCreate);

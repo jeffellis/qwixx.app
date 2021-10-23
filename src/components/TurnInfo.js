@@ -17,7 +17,7 @@ const TurnInfo = () => {
                 <div className="TurnInfo">
                     <p>{`"${gameId}" (${numPlayers} players)`}</p>
                     {myTurn
-                        ? <p><span className="your-turn">{`It's your turn`}</span></p>
+                        ? <p><span className="your-turn">{`It's your turn to roll`}</span></p>
                         : <p>{`${currentPlayer.name} is playing`}</p>
                     }
                 </div>
