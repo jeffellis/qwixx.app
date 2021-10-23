@@ -95,12 +95,6 @@ const useGame = ({ onError, onPlayersAdded, user }) => {
         subscriptions.current = [];
     }
 
-    const newGame = () => {
-        // const id = getGamesRef().push().key;
-        // getGamesRef().child(id).set(INITIAL_GAME_VALUE);
-        joinOrCreateGame('nervous-nelly');
-    }
-
     const createOrResetGame = (gameId) => {
         return firebase.set(`games/${gameId}/currentTurn`, INITIAL_GAME_VALUE.currentTurn);
     };
@@ -181,7 +175,6 @@ const useGame = ({ onError, onPlayersAdded, user }) => {
         joinOrCreateGame,
         gameId,
         myTurn,
-        newGame,
         numPlayers: players ? players.length : 0,
         players,
         rollDice,
