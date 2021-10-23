@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import GameContext from '../GameContext';
 import UserContext from '../UserContext';
 import useFormValidation from '../useFormValidation';
+import PageHeader from './PageHeader';
 
 const MIN_NAME_LENGTH = 5;
 
@@ -25,6 +26,7 @@ const CreateOrJoinGamePage  = () => {
     
     return (        
         <div className="app-page CreateOrJoinGamePage">
+            <PageHeader className="mb-3" title="Join a Game" />
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="gameId" className="form-label">Enter the name of a game to create or join</label>

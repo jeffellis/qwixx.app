@@ -1,0 +1,11 @@
+.PageHeader {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+  .PageHeader-title {
+    flex-grow: 1;
+    text-align: center;
+  }
+}

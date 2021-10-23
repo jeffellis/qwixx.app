@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import UserContext from '../UserContext';
 import useFormValidation from '../useFormValidation';
+import PageHeader from './PageHeader';
 
 const MIN_NAME_LENGTH = 3;
 const MIN_PASSWORD_LENGTH = 6;
@@ -60,7 +61,7 @@ export const CreateProfilePage = () => {
 
     return (        
         <div className="app-page ProfilePage mt-3">
-            <h2>Create a Player</h2>
+            <PageHeader title="Create a Player"/>
             <form onSubmit={handleSubmit}>
                 <NamePrompt {...promptProps} />
                 <EmailPrompt {...promptProps} />
@@ -108,7 +109,7 @@ export const SignOnPage = () => {
 
     return (        
         <div className="app-page ProfilePage mt-3">
-            <h2>Sign In</h2>
+            <PageHeader title="Sign In"/>
             <form onSubmit={handleSubmit}>
                 <EmailPrompt {...promptProps} />
                 <PasswordPrompt {...promptProps} />                
